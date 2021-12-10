@@ -1,0 +1,11 @@
+- defaults:
+   link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+   ~/.vimrc: vimrc
+
+- create:
+   - ~/.share/vim_backup
