@@ -1,0 +1,15 @@
+- defaults:
+   link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+   ~/.vimrc: vimrc
+
+- create:
+   - ~/.share/vim_backup
+
+- shell:
+   - [git submodule update --init --recursive, Installing any git submodules]
+   - ["vim +PlugUpdate +PlugClean! +qa", Installing vim plugins]

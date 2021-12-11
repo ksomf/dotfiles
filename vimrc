@@ -13,10 +13,11 @@ set cindent
 let fortran_free_source=1
 let fortran_do_enddo=1
 
-set hidden 
+set hidden
 
 filetype plugin on
 filetype indent on
+syntax on
 
 set showcmd
 set showmatch
@@ -31,7 +32,8 @@ set number
 set termguicolors
 set title
 set list
-set listchars=tab:▸\ \ ,trail:·,nbsp:·
+set showbreak=↪\
+set listchars=tab:→\ ,trail:•,nbsp:•",eol:↲
 set mouse=a
 set scrolloff=8
 set sidescrolloff=8
@@ -39,6 +41,7 @@ set nojoinspaces
 set splitright
 set updatetime=300
 set redrawtime=10000
+set clipboard=unnamedplus "Warning security risk
 
 set undofile
 "set spell
@@ -66,3 +69,13 @@ set pastetoggle=<F2>
 "set makeprg=./build_*.sh\ %                    " Set the make command to run build_*.sh scripts
 ":command -nargs=* Make silent make! <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
 
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(data_dir . '/plugins')
+
+call plug#end()
+"doautocmd User PlugLoaded
