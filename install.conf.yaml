@@ -9,6 +9,7 @@
 
 - create:
    - ~/.share/vim_backup
+   - ~/.share/vim_undo
 
 - shell:
    - [git submodule update --init --recursive, Installing any git submodules]

@@ -41,12 +41,14 @@ set nojoinspaces
 set splitright
 set updatetime=300
 set redrawtime=10000
-set clipboard=unnamedplus "Warning security risk
+"set clipboard=unnamedplus "Warning security risk
+set autoread
 
 set undofile
-"set spell
+set undodir=~/.share/vim_undo
 set backup
 set backupdir=~/.share/vim_backup
+"set spell
 
 """""""""""
 " KEYMAPS "
@@ -76,6 +78,30 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin(data_dir . '/plugins')
+
+Plug 'voldikss/vim-floaterm'
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_next   = '<F2>'
+let g:floaterm_keymap_prev   = '<F3>'
+let g:floaterm_keymap_new    = '<F4>'
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
+augroup FloatermCustomisations
+    autocmd!
+    autocmd ColorScheme * highlight FloatermBorder guibg=none
+augroup END
+
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
 
 call plug#end()
 "doautocmd User PlugLoaded
