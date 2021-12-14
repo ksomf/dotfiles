@@ -34,7 +34,7 @@ set title
 set list
 set showbreak=↪\
 set listchars=tab:→\ ,trail:•,nbsp:•",eol:↲
-set mouse=a
+"set mouse=a
 set scrolloff=8
 set sidescrolloff=8
 set nojoinspaces
@@ -44,10 +44,11 @@ set redrawtime=10000
 "set clipboard=unnamedplus "Warning security risk
 set autoread
 
+set directory=~/.local/vim_swap//
 set undofile
-set undodir=~/.share/vim_undo
+set undodir=~/.local/vim_undo//
 set backup
-set backupdir=~/.share/vim_backup
+set backupdir=~/.local/vim_backup//
 "set spell
 
 """""""""""
@@ -102,6 +103,9 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 "doautocmd User PlugLoaded
