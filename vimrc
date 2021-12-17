@@ -103,9 +103,10 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
-"doautocmd User PlugLoaded
+" doautocmd User PlugLoaded

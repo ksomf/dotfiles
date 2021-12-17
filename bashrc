@@ -1,6 +1,6 @@
 [[ $- != *i* ]] && return
 
-[ -f /etc/bashrc ] && source /etc/bashrc
+[[ -f /etc/bashrc ]] && source /etc/bashrc
 
 # Bind arrows to partial search through history
 bind '"\e[A": history-search-backward'
@@ -41,20 +41,20 @@ alias ls='ls -lhF ${colorflag}'
 alias ll='ls -a'
 alias df='df -h'
 alias du='du -h'
-[ $TERM == xterm-kitty ] && alias ssh='kitty +kitten ssh'
+[[ $TERM == xterm-kitty ]] && alias ssh='kitty +kitten ssh'
 
 PATH=~/.local/bin:$PATH
 PATH=~/.local/scripts:$PATH
 PATH=~/.local/miniconda/bin:$PATH
 
-if [ -d /opt/intel/bin ]; then
+if [[ -d /opt/intel/bin ]]; then
 	. /opt/intel/bin/compilervars.sh intel64
 	. /opt/intel/bin/debuggervars.sh
 fi
 
-[ -f ~/.ghcup/env ] && source ~/.ghcup/env # ghcup-env
-[ -f ~/.local/scripts/git-completion.bash ] && source git-completion.bash
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -f ~/.ghcup/env ]] && source ~/.ghcup/env # ghcup-env
+[[ -f ~/.local/scripts/git-completion.bash ]] && source git-completion.bash
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 
 if [[ "$USER" == "root" ]]; then
 	prompt_col_1=$brightred
@@ -77,4 +77,4 @@ PS1='\[$reset\]\[$prompt_col_1\]\u\[$reset\]@\[$prompt_col_2\]\h\[$prompt_col_1\
 #fi
 PS1+='\[$reset\]\$ '
 
-[ -f ~/.bashrc_local ] && source ~/.bashrc_local
+[[ -f ~/.bashrc_local ]] && source ~/.bashrc_local ]
