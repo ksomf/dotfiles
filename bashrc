@@ -41,6 +41,7 @@ alias ls='ls -lhF ${colorflag}'
 alias ll='ls -a'
 alias df='df -h'
 alias du='du -h'
+[ $TERM == xterm-kitty ] && alias ssh='kitty +kitten ssh'
 
 PATH=~/.local/bin:$PATH
 PATH=~/.local/scripts:$PATH
@@ -67,13 +68,13 @@ else
 fi
 
 PS1='\[$reset\]\[$prompt_col_1\]\u\[$reset\]@\[$prompt_col_2\]\h\[$prompt_col_1\]:\W'
-if [ -f ~/.local/scripts/git-prompt.sh ]; then
-	source ~/.local/scripts/git-prompt.sh
-	export GIT_PS1_SHOWDIRTYSTATE=true
-	export GIT_PS1_SHOWUNTRACKEDFILES=true
-	export GIT_PS1_SHOWUPSTREAM='auto'
-	export PS1+='\[$prompt_col_2\]$(__git_ps1 "(%s)")'
-fi
+#if [ -f ~/.local/scripts/git-prompt.sh ]; then
+#	source ~/.local/scripts/git-prompt.sh
+#	export GIT_PS1_SHOWDIRTYSTATE=true
+#	export GIT_PS1_SHOWUNTRACKEDFILES=true
+#	export GIT_PS1_SHOWUPSTREAM='auto'
+#	export PS1+='\[$prompt_col_2\]$(__git_ps1 "(%s)")'
+#fi
 PS1+='\[$reset\]\$ '
 
 [ -f ~/.bashrc_local ] && source ~/.bashrc_local

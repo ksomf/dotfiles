@@ -39,3 +39,5 @@
    - ["./git2bin.sh https://github.com/i-tu/Hasklig.git ./build.sh && if [ $(uname) == 'Darwin' ]; then cp ~/.Hasklig/target/TTF/* ~/Library/Fonts/; else mkdir -p ~/.fonts && cp ~/.Hasklig/target/TTF/* ~/.fonts/; fi", Installing/Updating Hasklig font]
    - ["wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip                 -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
    - ["wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
+
+   - [pip install -U pipenv, Installing basic python packages]
