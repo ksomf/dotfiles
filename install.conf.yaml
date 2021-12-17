@@ -7,6 +7,14 @@
 
 - clean: ['~','~/.local/bin']
 
+- create:
+   - ~/.local/bin
+   - ~/.local/vim_backup
+   - ~/.local/vim_undo
+   - ~/.local/vim_swap
+   - ~/.local/scripts
+   - ~/.config/kitty
+
 - link:
    ~/.vimrc: vimrc
    ~/.bashrc: bashrc
@@ -16,15 +24,9 @@
      path: kitty.conf
    ~/.gitignore_global: gitignore_global
 
-- create:
-   - ~/.local/bin
-   - ~/.local/vim_backup
-   - ~/.local/vim_undo
-   - ~/.local/vim_swap
-   - ~/.local/scripts
-
 - shell:
    - [git submodule update --init --recursive, Installing/Updating any git submodules]
+   - ["if [ $(uname) == 'Darwin' ]; then curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz && ln -s nvim-osx64/bin/nvim vim; elif [ $(uname) == 'Linux' ]; then curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim; fi", Installing neovim on linux]
    - ["vim +PlugUpdate +PlugClean! +qa", Installing/Updating vim plugins]
    - ["curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n", Installing/Updating Kitty]
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh" , Downloading zsh completion]
