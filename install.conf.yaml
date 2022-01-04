@@ -25,6 +25,7 @@
      force: true
      path: kitty.conf
    ~/.gitignore_global: gitignore_global
+   ~/.Renviron: Renviron
 
 - shell:
    - [git submodule update --init --recursive, Installing/Updating any git submodules]
