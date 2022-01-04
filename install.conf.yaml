@@ -3,7 +3,6 @@
       relink: true
    shell:
       stdout: true
-      if: '[ "$(uname)" == "Darwin" ]'
 
 - clean: ['~','~/.local/bin']
 
@@ -29,9 +28,18 @@
 
 - shell:
    - [git submodule update --init --recursive, Installing/Updating any git submodules]
-   - ["if [ $(uname) == 'Darwin' ]; then if [ ! -d ~/.local/miniconda ]; then curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh; fi else echo 'Not installing on OS'; fi", Installing Miniconda if OSX]
-   - ["if [ $(uname) == 'Linux'  ]; then if [ ! -d ~/.local/miniconda ]; then curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh; fi else echo 'Not installing on OS'; fi", Installing Miniconda if Linux]
-   - ["if [ $(uname) == 'Darwin' ]; then curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -s ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim; elif [ $(uname) == 'Linux' ]; then curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim; fi", Installing neovim on linux]
+   - ["if [ ! -d ~/.local/miniconda ]; then
+         if [ $(uname) == 'Darwin' ]; then
+            curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh;
+         elif [ $(uname) == 'Linux'  ]; then
+          curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh;
+         fi
+       fi", Installing Miniconda]
+   - ["if [ $(uname) == 'Darwin' ]; then
+        curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim;
+       elif [ $(uname) == 'Linux' ]; then
+        curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim;
+       fi", Installing neovim on linux]
    - ["vim +PlugUpdate +PlugClean! +qa", Installing/Updating vim plugins]
    - ["curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n", Installing/Updating Kitty]
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh" , Downloading zsh completion]
@@ -39,8 +47,7 @@
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh"      , Download bash prompt]
    - ["./git2bin.sh https://github.com/junegunn/fzf.git ./install --key-bindings --completion --update-rc", Installing/Updating fzf]
    - [pip install -U afdko, Installing font tools]
-   - ["./git2bin.sh https://github.com/i-tu/Hasklig.git ./build.sh && if [ $(uname) == 'Darwin' ]; then cp ~/.Hasklig/target/TTF/* ~/Library/Fonts/; else mkdir -p ~/.fonts && cp ~/.Hasklig/target/TTF/* ~/.fonts/; fi", Installing/Updating Hasklig font]
+   - ["if [ $(uname) == 'Darwin' ]; then ./git2bin.sh https://github.com/i-tu/Hasklig.git ./build.sh && if [ $(uname) == 'Darwin' ]; then cp ~/.Hasklig/target/TTF/* ~/Library/Fonts/; else mkdir -p ~/.fonts && cp ~/.Hasklig/target/TTF/* ~/.fonts/; fi; fi", Installing/Updating Hasklig font]
    - ["wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip                 -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
    - ["wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
-
    - [pip install -U pipenv, Installing basic python packages]
