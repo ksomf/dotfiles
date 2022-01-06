@@ -45,7 +45,7 @@
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh" , Downloading zsh completion]
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash", Downloading bash completion]
    - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh"      , Download bash prompt]
-   - ["./git2bin.sh https://github.com/junegunn/fzf.git ./install --key-bindings --completion --update-rc", Installing/Updating fzf]
+   - ["./git2bin.sh https://github.com/junegunn/fzf.git ./install --key-bindings --completion --no-update-rc", Installing/Updating fzf]
    - ["if [ $(uname) == 'Darwin' ]; then pip install -U afdko; fi", Installing font tools]
    - ["if [ $(uname) == 'Darwin' ]; then ./git2bin.sh https://github.com/i-tu/Hasklig.git ./build.sh && if [ $(uname) == 'Darwin' ]; then cp ~/.Hasklig/target/TTF/* ~/Library/Fonts/; else mkdir -p ~/.fonts && cp ~/.Hasklig/target/TTF/* ~/.fonts/; fi; fi", Installing/Updating Hasklig font]
    - ["wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip                 -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
