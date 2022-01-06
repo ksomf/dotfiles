@@ -46,10 +46,16 @@ alias du='du -h'
 PATH=~/.local/bin:$PATH
 PATH=~/.local/scripts:$PATH
 PATH=~/.local/miniconda/bin:$PATH
+PATH=~/.pyenv/bin:$PATH
 
 if [[ -d /opt/intel/bin ]]; then
 	. /opt/intel/bin/compilervars.sh intel64
 	. /opt/intel/bin/debuggervars.sh
+fi
+
+if [[ -d ~/.pyenv/bin ]]; then
+	eval "$(pyenv init --path)"
+	eval "$(pyenv virtualenv-init -)"
 fi
 
 [[ -f ~/.ghcup/env ]] && source ~/.ghcup/env # ghcup-env
@@ -78,3 +84,8 @@ fi
 PS1+='\[$reset\]\$ '
 
 [[ -f ~/.bashrc_local ]] && source ~/.bashrc_local ]
+
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION
