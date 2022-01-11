@@ -80,10 +80,16 @@ if [ -f ~/.local/scripts/git-prompt.sh ]; then
 	export GIT_PS1_SHOWUNTRACKEDFILES=true
 	export GIT_PS1_SHOWUPSTREAM='auto'
 	export PS1+='\[$prompt_col_2\]$(__git_ps1 "(%s)")'
+
+	#In case you need to disable for a few files
+	#git config --local --add bash.showDirtyState false
+	#git config --local --add bash.showUntrackedFiles false
+	#git config --local --add bash.showUpstream ''
 fi
 PS1+='\[$reset\]\$ '
 
-[[ -f ~/.bashrc_local ]] && source ~/.bashrc_local ]
+[[ -f ~/.bashrc_local ]]    && source ~/.bashrc_local
+[[ -f ~/.bashrc_extended ]] && source ~/.bashrc_extended
 
 
 # BEGIN_KITTY_SHELL_INTEGRATION

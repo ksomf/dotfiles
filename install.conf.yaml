@@ -1,54 +1,81 @@
 - defaults:
-   link:
-      relink: true
-   shell:
-      stdout: true
+  link:
+    relink: true
+  mp_shell:
+    stdout: true
+    stderr: true
 
-- clean: ['~','~/.local/bin']
+- clean: 
+  - '~'
+  - '~/.local/bin'
 
 - create:
-   - ~/.local/bin
-   - ~/.local/vim_backup
-   - ~/.local/vim_undo
-   - ~/.local/vim_swap
-   - ~/.local/scripts
-   - ~/.config/kitty
-   - ~/.config/nvim
+  - ~/.local/bin
+  - ~/.local/vim_backup
+  - ~/.local/vim_undo
+  - ~/.local/vim_swap
+  - ~/.local/scripts
+  - ~/.local/share
+  - ~/.config/kitty
+  - ~/.config/nvim
 
 - link:
-   ~/.vimrc: vimrc
-   ~/.config/nvim/init.vim: vimrc
-   ~/.bashrc: bashrc
-   ~/bash_profile: bash_profile
-   ~/.config/kitty/kitty.conf: 
-     force: true
-     path: kitty.conf
-   ~/.gitignore_global: gitignore_global
-   ~/.Renviron: Renviron
+  ~/.vimrc: vimrc
+  ~/.config/nvim/init.vim: vimrc
+  ~/.bashrc: bashrc
+  ~/bash_profile: bash_profile
+  ~/.config/kitty/kitty.conf:
+    force: true
+    path: kitty.conf
+  ~/.gitignore_global: gitignore_global
+  ~/.Renviron: Renviron
 
-- shell:
-   - [git submodule update --init --recursive, Installing/Updating any git submodules]
-   - ["if [ ! -d ~/.local/miniconda ]; then
-         if [ $(uname) == 'Darwin' ]; then
-            curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh;
-         elif [ $(uname) == 'Linux'  ]; then
-          curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh;
-         fi
-       fi", Installing Miniconda]
-   - ["if [ $(uname) == 'Darwin' ]; then
-        curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim;
-       elif [ $(uname) == 'Linux' ]; then
-        curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim;
-       fi", Installing neovim on linux]
-   - ["vim +PlugUpdate +PlugClean! +qa", Installing/Updating vim plugins]
-   - ["curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n", Installing/Updating Kitty]
-   - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh" , Downloading zsh completion]
-   - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash", Downloading bash completion]
-   - ["curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh"      , Download bash prompt]
-   - ["./git2bin.sh https://github.com/junegunn/fzf.git ./install --key-bindings --completion --no-update-rc", Installing/Updating fzf]
-   - ["if [ $(uname) == 'Darwin' ]; then pip install -U afdko; fi", Installing font tools]
-   - ["if [ $(uname) == 'Darwin' ]; then ./git2bin.sh https://github.com/i-tu/Hasklig.git ./build.sh && if [ $(uname) == 'Darwin' ]; then cp ~/.Hasklig/target/TTF/* ~/Library/Fonts/; else mkdir -p ~/.fonts && cp ~/.Hasklig/target/TTF/* ~/.fonts/; fi; fi", Installing/Updating Hasklig font]
-   - ["wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip                 -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
-   - ["wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && if [ $(uname) == 'Darwin' ]; then unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/; elif [ $(uname) == 'Linux' ]; then  mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/; fi && rm /tmp/z.$$", Installing FiraCodeFont]
-   - [pip install -U pipenv numpy scipy, Installing basic python packages]
-   - [which pyenv && pyenv update || curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash, Installing pyenv for full pipenv functionality]
+- mp_shell:
+  - command: git submodule update --init --recursive
+    msg: Installing/Updating any git submodules
+
+  - darwin: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
+    linux: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
+    msg: Installing Miniconda
+    if: test ! -d ~/.local/miniconda
+
+  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim
+    linux: curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
+    msg: Installing neovim on linux
+    if: test ! -f ~/.local/bin/vim
+
+  - command: vim +PlugUpdate +PlugClean! +qa
+    msg: Installing/Updating vim plugins
+
+  - command: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+    msg: Installing/Updating Kitty
+
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh 
+    msg: Downloading zsh completion
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash
+    msg: Downloading bash completion
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
+    msg: Download bash prompt
+
+  - command: ./install --key-bindings --completion --no-update-rc
+    github: https://github.com/junegunn/fzf.git
+    msg: Installing/Updating fzf
+
+  - darwin: pip install -U afdko
+    msg: Installing font tools
+  - darwin: ./build.sh && cp target/TTF/* ~/Library/Fonts/
+    #linux: ./build.sh && mkdir -p ~/.fonts && cp target/TTF/* ~/.fonts/
+    github: https://github.com/i-tu/Hasklig.git
+    msg: Installing/Updating Hasklig font
+
+  - darwin: wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
+    linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
+    msg: Installing FiraCodeFont
+  - darwin: wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
+    linux:  wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
+    msg: Installing FiraCodeFont
+
+  - command: pip install -U pipenv numpy scipy
+    msg: Installing basic python packages
+  - command: which pyenv && pyenv update || curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+    msg: Installing pyenv for full pipenv functionality
