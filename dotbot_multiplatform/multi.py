@@ -28,6 +28,7 @@ class MultiPlatformShell(dotbot.Plugin):
         defaults = self._context.defaults().get('mp_shell', {})
         options = self._get_option_overrides()
         system = platform.system().lower()
+        print(data)
         for item in data:
             stdin = defaults.get('stdin', False)
             stdout = defaults.get('stdout', False)
