@@ -44,6 +44,10 @@
     msg: Installing neovim on linux
     if: test ! -f ~/.local/bin/vim
 
+  - command: ./install --key-bindings --completion --no-update-rc
+    github: https://github.com/junegunn/fzf.git
+    msg: Installing/Updating fzf
+
   - command: vim +PlugUpdate +PlugClean! +qa
     msg: Installing/Updating vim plugins
 
@@ -56,10 +60,6 @@
     msg: Downloading bash completion
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
     msg: Download bash prompt
-
-  - command: ./install --key-bindings --completion --no-update-rc
-    github: https://github.com/junegunn/fzf.git
-    msg: Installing/Updating fzf
 
   - darwin: pip install -U afdko
     msg: Installing font tools
