@@ -67,8 +67,17 @@ path=(
 	$path
 )
 
-PROMPT='%F{green}%n%f@%F{blue}%m%F{green}:%4~ %f%# '
+[ -f ~/.fzf.zsh ]   && source ~/.fzf.zsh
+[ -f ~/.ghcup/env ] && source ~/.ghcup/env
+
+#red, blue, green, cyan, yellow, magenta, black, & white
+PROMPT='%B%{%F{cyan}%}%n%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f'
+if [ -f ~/.local/share/zsh-git-prompt/zshrc.sh ] 
+then
+	GIT_PROMPT_EXECUTABLE="haskell"
+	source ~/.local/share/zsh-git-prompt/zshrc.sh
+	PROMPT+=' $(git_super_status)'
+fi
+PROMPT+=' %f%(?.%{%F{cyan}%}.%{%F{red}%})%#%f%b '
 
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
