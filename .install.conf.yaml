@@ -24,6 +24,7 @@
    ~/.config/nvim/init.vim: vimrc
    ~/.bashrc: bashrc
    ~/bash_profile: bash_profile
+   ~/.zshrc: zshrc
    ~/.config/kitty/kitty.conf:
       force: true
       path: kitty.conf
@@ -79,3 +80,9 @@
     msg: Installing basic python packages
   - command: which pyenv && pyenv update || curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     msg: Installing pyenv for full pipenv functionality
+
+  - command: curl -sfL git.io/antibody | sh -s - -b ~/.local/bin
+  - msg: Installing antibody
+
+  - darwin: compaudit | xargs chmod g-w
+  - msg: ensuring security of compinit
