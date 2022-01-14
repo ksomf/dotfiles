@@ -69,7 +69,7 @@ setopt HIST_REDUCE_BLANKS
 SAVEHIST=10000
 HISTSIZE=10000
 
-alias ll='ls -a'
+alias ll='ls -ahFGl'
 alias df='df -h'
 alias du='du -h'
 
