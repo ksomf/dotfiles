@@ -1,6 +1,20 @@
 autoload -Uz compinit
 compinit
 
+path=(
+	~/.local/bin
+	~/.local/scripts
+	~/.local/miniconda/bin
+	~/.pyenv/bin
+	$path
+)
+
+if [[ -d ~/.pyenv/bin ]]; then
+	export PYENV_ROOT=~/.pyenv
+	eval "$(pyenv init --path)"
+	eval "$(pyenv virtualenv-init -)"
+fi
+
 source <(antibody init)
 
 antibody bundle robbyrussell/oh-my-zsh path:plugins/git
@@ -59,19 +73,11 @@ alias ll='ls -a'
 alias df='df -h'
 alias du='du -h'
 
-path=(
-	~/.local/bin
-	~/.local/scripts
-	~/.local/miniconda/bin
-	~/.pyenv/bin
-	$path
-)
-
 [ -f ~/.fzf.zsh ]   && source ~/.fzf.zsh
 [ -f ~/.ghcup/env ] && source ~/.ghcup/env
 
 #red, blue, green, cyan, yellow, magenta, black, & white
-PROMPT='%B%{%F{cyan}%}%n%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f'
+PROMPT='%B%{%F{blue}%}$(virtualenv_prompt_info)%{%F{cyan}%}%n%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f'
 if [ -f ~/.local/share/zsh-git-prompt/zshrc.sh ] 
 then
 	GIT_PROMPT_EXECUTABLE="haskell"

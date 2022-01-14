@@ -23,7 +23,7 @@
    ~/.vimrc: vimrc
    ~/.config/nvim/init.vim: vimrc
    ~/.bashrc: bashrc
-   ~/bash_profile: bash_profile
+   ~/.bash_profile: bash_profile
    ~/.zshrc: zshrc
    ~/.config/kitty/kitty.conf:
       force: true
