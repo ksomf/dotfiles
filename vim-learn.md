@@ -37,3 +37,7 @@ ys<visual sequence><surround_set>
 # junegunn/fzf
 
 - `:Files`
+
+# Regex
+
+- https://learnbyexample.gitbooks.io/vim-reference/content/Regular_Expressions.html#further-reading
