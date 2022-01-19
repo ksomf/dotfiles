@@ -76,10 +76,10 @@
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
     msg: Download bash prompt
 
-  - command: pip install -U afdko
+  - darwin: pip install -U afdko
     msg: Installing font tools
   - darwin: ./build.sh && cp target/TTF/* ~/Library/Fonts/
-    linux: ./build.sh && mkdir -p ~/.fonts && cp target/TTF/* ~/.fonts/
+    #linux: ./build.sh && mkdir -p ~/.fonts && cp target/TTF/* ~/.fonts/ #Currently the github script doesn't work on linux
     github: https://github.com/i-tu/Hasklig.git
     msg: Installing/Updating Hasklig font
 
