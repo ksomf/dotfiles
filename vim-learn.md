@@ -41,3 +41,10 @@ ys<visual sequence><surround_set>
 # Regex
 
 - https://learnbyexample.gitbooks.io/vim-reference/content/Regular_Expressions.html#further-reading
+
+# vim-slime
+
+- kitty: cmd+enter -> new window
+- kitty: cmd+1-9 -> nth window
+- C-c C-c: send to configured
+- C-c v: reconfigure listening port and address

@@ -108,5 +108,9 @@ Plug 'tpope/vim-repeat'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "kitty"
+let b:slime_config = { "window_id":2, "listen_on": $KITTY_LISTEN_ON }
+
 call plug#end()
 " doautocmd User PlugLoaded

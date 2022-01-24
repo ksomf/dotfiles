@@ -1,3 +1,3 @@
 # TODO list
 
-- Setup vim-lime
+- Currently none
