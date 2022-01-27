@@ -38,9 +38,6 @@
    ~/.Renviron: Renviron
 
 - mp_shell:
-  - command: git submodule update --init --recursive
-    msg: Installing/Updating any git submodules
-
   - darwin: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
     linux: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
     msg: Installing Miniconda
