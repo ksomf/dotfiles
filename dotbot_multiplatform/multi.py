@@ -76,7 +76,7 @@ class MultiPlatformShell(dotbot.Plugin):
                 self._log.lowinfo('\t%s' % test_cmd)
                 target_working_directory_missing = dotbot.util.shell_command(test_cmd)
                 if target_working_directory_missing:
-                    git_cmd = 'git clone --depth=1 %s %s' % (github,target_working_directory)
+                    git_cmd = 'git clone --recurse-submodules --depth=1 %s %s' % (github,target_working_directory)
                     self._log.lowinfo('\t%s' % git_cmd)
                     ret = dotbot.util.shell_command(
                         git_cmd,
@@ -87,19 +87,6 @@ class MultiPlatformShell(dotbot.Plugin):
                     if ret != 0:
                         success = False
                         self._log.warning('Git Command [%s] failed' % git_cmd)
-                        continue
-                    git_init_cmd = 'git submodule update --init --recursive'
-                    self._log.lowinfo('\t%s' % git_init_cmd)
-                    ret = dotbot.util.shell_command(
-                        git_init_cmd,
-                        cwd=target_working_directory,
-                        enable_stdin=stdin,
-                        enable_stdout=stdout,
-                        enable_stderr=stderr
-                    )
-                    if ret != 0:
-                        success = False
-                        self._log.warning('Git Init Command [%s] failed' % git_init_cmd)
                         continue
                 else:
                     git_cmd = 'git status -uno | grep "behind" && git pull || echo "up to date"'
