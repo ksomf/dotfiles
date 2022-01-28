@@ -11,6 +11,8 @@
 
 - create:
   - ~/.local/bin
+  - ~/.local/lib
+  - ~/.local/include
   - ~/.local/vim_backup
   - ~/.local/vim_undo
   - ~/.local/vim_swap
