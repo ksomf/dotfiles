@@ -88,3 +88,5 @@ PROMPT+=' %f%(?.%{%F{cyan}%}.%{%F{red}%})%(!.#.>)%f%b '
 
 zstyle ':completion:*' list-suffixes zstyle ':completion:*' expand prefix suffix
 
+[ -f ~/.zshrc_extended ] && source ~/.zshrc_extended
+[ -f ~/.zshrc_local ]    && source ~/.zshrc_local
