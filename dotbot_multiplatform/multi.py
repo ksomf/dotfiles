@@ -88,6 +88,19 @@ class MultiPlatformShell(dotbot.Plugin):
                         success = False
                         self._log.warning('Git Command [%s] failed' % git_cmd)
                         continue
+                    git_init_cmd = 'git submodule update --init --recursive'
+                    self._log.lowinfo('\t%s' % git_init_cmd)
+                    ret = dotbot.util.shell_command(
+                        git_init_cmd,
+                        cwd=target_working_directory,
+                        enable_stdin=stdin,
+                        enable_stdout=stdout,
+                        enable_stderr=stderr
+                    )
+                    if ret != 0:
+                        success = False
+                        self._log.warning('Git Init Command [%s] failed' % git_init_cmd)
+                        continue
                 else:
                     git_cmd = 'git status -uno | grep "behind" && git pull || echo "up to date"'
                     self._log.lowinfo('\t%s' % git_cmd)
