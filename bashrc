@@ -88,5 +88,5 @@ if [ -f ~/.local/scripts/git-prompt.sh ]; then
 fi
 PS1+='\[$reset\]\$ '
 
-[[ -f ~/.bashrc_local ]]    && source ~/.bashrc_local
-[[ -f ~/.bashrc_extended ]] && source ~/.bashrc_extended
+[[ -a ~/.bashrc_local ]]    && source ~/.bashrc_local
+[[ -a ~/.bashrc_extended ]] && source ~/.bashrc_extended
