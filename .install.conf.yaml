@@ -8,6 +8,8 @@
 - clean:
   - '~'
   - '~/.local/bin'
+  - '~/.local/lib'
+  - '~/.local/include'
 
 - create:
   - ~/.local/bin
