@@ -40,6 +40,11 @@
    ~/.Renviron: Renviron
 
 - mp_shell:
+  # HASKELL
+  - command: which stack && stack upgrade || curl -sSL https://get.haskellstack.org/ | sh
+    msg: installing stack
+
+  # PYTHON
   - darwin: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
     linux: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
     msg: Installing Miniconda
@@ -48,35 +53,62 @@
   - command: conda install pip
     msg: installing pip
     if: test ! -a ~/.local/miniconda/bin/pip
+
   - command: pip install -U pipenv numpy scipy
     msg: Installing basic python packages
+
   - command: which pyenv && pyenv update || curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     msg: Installing pyenv for full pipenv functionality
 
+  # BASIC UTILITIES
+  - command: ./install --key-bindings --completion --no-update-rc
+    github: https://github.com/junegunn/fzf.git
+    msg: Installing/Updating fzf
+
+  # TERMINAL
+  - command: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+    msg: Installing/Updating Kitty
+
+  # SHELLS
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash
+    msg: Downloading bash completion
+    if: which bash
+
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
+    msg: Download bash prompt
+    if: which bash
+
+  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh
+    msg: Downloading zsh completion
+    if: which zsh
+
+  - command: curl -sfL git.io/antibody | sh -s - -b ~/.local/bin
+    msg: Installing antibody
+    if: which zsh
+
+  - darwin: compaudit | xargs chmod g-w
+    msg: ensuring security of compinit
+    if: which zsh
+
+  - command: stack setup && stack build && stack install
+    msg: installing git prompt
+    github: https://github.com/ksomf/zsh-git-prompt
+    if: which zsh
+
+  # VIM
   - darwin: curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim
     linux: curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
     msg: Installing neovim on linux
     if: test ! -f ~/.local/bin/vim
 
-  - command: ./install --key-bindings --completion --no-update-rc
-    github: https://github.com/junegunn/fzf.git
-    msg: Installing/Updating fzf
-
   - command: vim +PlugUpdate +PlugClean! +qa
     msg: Installing/Updating vim plugins
 
-  - command: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-    msg: Installing/Updating Kitty
 
-  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh
-    msg: Downloading zsh completion
-  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash
-    msg: Downloading bash completion
-  - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
-    msg: Download bash prompt
-
+  # FONTS
   - darwin: pip install -U afdko
     msg: Installing font tools
+
   - darwin: ./build.sh && cp target/TTF/* ~/Library/Fonts/
     #linux: ./build.sh && mkdir -p ~/.fonts && cp target/TTF/* ~/.fonts/ #Currently the github script doesn't work on linux
     github: https://github.com/i-tu/Hasklig.git
@@ -85,21 +117,7 @@
   - darwin: wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
     linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
     msg: Installing FiraCodeFont
+
   - darwin: wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
     linux:  wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
     msg: Installing FiraCodeFont
-
-  - command: curl -sfL git.io/antibody | sh -s - -b ~/.local/bin
-    msg: Installing antibody
-
-  - darwin: compaudit | xargs chmod g-w
-    msg: ensuring security of compinit
-    if: which zsh
-
-  - command: which stack && stack upgrade || curl -sSL https://get.haskellstack.org/ | sh
-    msg: installing stack
-
-  - command: stack setup && stack build && stack install
-    msg: installing git prompt
-    github: https://github.com/ksomf/zsh-git-prompt
-    if: which zsh
