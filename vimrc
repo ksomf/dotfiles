@@ -17,6 +17,7 @@ set hidden
 
 filetype plugin on
 filetype indent on
+autocmd FileType python setlocal noexpandtab
 syntax on
 
 set showcmd
