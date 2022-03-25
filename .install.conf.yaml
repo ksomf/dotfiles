@@ -52,9 +52,17 @@
     msg: Installing Miniconda
     if: test ! -d ~/.local/miniconda
 
+  - command: curl -L "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" -o minimamba.sh && sh minimamba.sh -b -p ~/.local/minimamba && rm -f minimamba.sh
+    msg: Installing Minimamba
+    if: test ! -d ~/.local/minimamba
+
   - command: conda install pip
-    msg: installing pip
+    msg: installing conda pip
     if: test ! -a ~/.local/miniconda/bin/pip
+
+  - command: mamba install pip
+    msg: installing mamba pip
+    if: test ! -a ~/.local/minimamba/bin/pip
 
   - command: pip install -U pipenv numpy scipy
     msg: Installing basic python packages

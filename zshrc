@@ -4,6 +4,7 @@ compinit
 path=(
 	~/.local/bin
 	~/.local/scripts
+	~/.local/minimamba/bin
 	~/.local/miniconda/bin
 	~/.pyenv/bin
 	$path

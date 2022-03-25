@@ -43,10 +43,11 @@ alias df='df -h'
 alias du='du -h'
 [[ $TERM == xterm-kitty ]] && alias ssh='kitty +kitten ssh'
 
-PATH=~/.local/bin:$PATH
-PATH=~/.local/scripts:$PATH
-PATH=~/.local/miniconda/bin:$PATH
 PATH=~/.pyenv/bin:$PATH
+PATH=~/.local/miniconda/bin:$PATH
+PATH=~/.local/minimamba/bin:$PATH
+PATH=~/.local/scripts:$PATH
+PATH=~/.local/bin:$PATH
 
 if [[ -d /opt/intel/bin ]]; then
 	. /opt/intel/bin/compilervars.sh intel64
