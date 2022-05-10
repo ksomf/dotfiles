@@ -29,9 +29,10 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/rsync
 antibody bundle robbyrussell/oh-my-zsh path:plugins/z
 
 antibody bundle robbyrussell/oh-my-zsh path:plugins/pip
-antibody bundle robbyrussell/oh-my-zsh path:plugins/pipenv
-antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
-antibody bundle robbyrussell/oh-my-zsh path:plugins/virtualenv
+antibody bundle se-jaeger/zsh-activate-py-environment
+#antibody bundle robbyrussell/oh-my-zsh path:plugins/pipenv
+#antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
+#antibody bundle robbyrussell/oh-my-zsh path:plugins/virtualenv
 
 antibody bundle robbyrussell/oh-my-zsh path:plugins/cabal
 
