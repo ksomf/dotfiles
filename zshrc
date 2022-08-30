@@ -6,6 +6,7 @@ path=(
 	~/.local/scripts
 	~/.local/minimamba/bin
 	~/.local/miniconda/bin
+	~/.cargo/bin
 	~/.pyenv/bin
 	$path
 )
@@ -79,7 +80,8 @@ alias du='du -h'
 [ -f ~/.ghcup/env ] && source ~/.ghcup/env
 
 #red, blue, green, cyan, yellow, magenta, black, & white
-PROMPT='%B%{%F{blue}%}$(virtualenv_prompt_info)%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f' #%{%F{cyan}%}%n%f <- username
+#PROMPT='%B%{%F{blue}%}$(virtualenv_prompt_info)%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f' #%{%F{cyan}%}%n%f <- username
+PROMPT='%B%{%F{blue}%}%f@%{%F{blue}%}%m%{%F{cyan}%}:%4~%f' #%{%F{cyan}%}%n%f <- username
 if [ -f ~/.local/share/zsh-git-prompt/zshrc.sh ] 
 then
 	GIT_PROMPT_EXECUTABLE="haskell"

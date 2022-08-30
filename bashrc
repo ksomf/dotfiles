@@ -44,6 +44,7 @@ alias du='du -h'
 [[ $TERM == xterm-kitty ]] && alias ssh='kitty +kitten ssh'
 
 PATH=~/.pyenv/bin:$PATH
+PATH=~/.cargo/bin:$PATH
 PATH=~/.local/miniconda/bin:$PATH
 PATH=~/.local/minimamba/bin:$PATH
 PATH=~/.local/scripts:$PATH

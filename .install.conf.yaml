@@ -42,92 +42,83 @@
    ~/.Renviron: Renviron
 
 - mp_shell:
+  # PROGRAMMING LANGUAGES
   # HASKELL
   - command: which stack && stack upgrade || curl -sSL https://get.haskellstack.org/ | sh
     msg: installing stack
-
   # PYTHON
-  - darwin: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
-    linux: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh  -o miniconda.sh && sh miniconda.sh -b -p ~/.local/miniconda && rm -f miniconda.sh
-    msg: Installing Miniconda
-    if: test ! -d ~/.local/miniconda
-
-  - command: curl -L "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" -o minimamba.sh && sh minimamba.sh -b -p ~/.local/minimamba && rm -f minimamba.sh
+  - command: curl -L "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" -o minimamba.sh && sh minimamba.sh -ub -p ~/.local/minimamba && rm -f minimamba.sh
     msg: Installing Minimamba
-    if: test ! -d ~/.local/minimamba
-
-  - command: conda install pip
-    msg: installing conda pip
-    if: test ! -a ~/.local/miniconda/bin/pip
-
-  - command: mamba install pip
+      #if: test ! -d ~/.local/minimamba
+  - command: mamba install pip pipenv numpy scipy afdko
     msg: installing mamba pip
     if: test ! -a ~/.local/minimamba/bin/pip
-
-  - command: pip install -U pipenv numpy scipy
+  - command: pip install -U afdko
     msg: Installing basic python packages
-
   - command: which pyenv && pyenv update || curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
     msg: Installing pyenv for full pipenv functionality
+  # # C
+  # - darwin: curl -sL https://ftpmirror.gnu.org/gnu/m4/m4-latest.tar.gz | tar -xvz -C ~/.local/share -s '/m4-[0-9.]*/m4/' && cd $HOME/.local/share/m4 && ./configure --prefix=$HOME/.local && make && make install
+  #   msg: Installing modern version of m4
+  # - darwin: curl -sL https://ftpmirror.gnu.org/gnu/autoconf/autoconf-latest.tar.gz | tar -xvz -C ~/.local/share -s '/autoconf-[0-9.]*/autoconf/' && cd $HOME/.local/share/autoconf && ./configure --bindir=$HOME/.local/bin --libdir=$HOME/.local/lib --includedir=$HOME/.local/include && make && make install
+  #   msg: Installing autoconf-2.70 (avoiding failures incurred on OSX from emacs)
+  # - darwin: curl -sL https://ftpmirror.gnu.org/gnu/automake/automake-1.16.tar.gz | tar -xvz -C ~/.local/share -s '/automake-[0-9.]*/automake/' && cd $HOME/.local/share/automake && ./configure --prefix=$HOME/.local && make && make install
+  #   msg: Installing automake
+  # - linux: ./bootstrap --prefix=~/.local && make && make install
+  #   github: --depth=1 --branch release https://github.com/Kitware/CMake
+  #   msg: Installing cmake 3.22.2
+  # - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm 
+  #   github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
+  #   msg: installing clang
+  # Rust
+  - command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustlang.sh && sh rustlang.sh --no-modify-path -y && rm rustlang.sh
+    msg: Installing the rust toolchain
 
-  # BASIC UTILITIES
+
+  # TERMINAL
   - command: ./install --key-bindings --completion --no-update-rc
     github: https://github.com/junegunn/fzf.git
     msg: Installing/Updating fzf
-
-  # TERMINAL
   - command: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
     msg: Installing/Updating Kitty
-
-  # SHELLS
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash
     msg: Downloading bash completion
     if: which bash
-
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh       -o ~/.local/scripts/git-prompt.sh
     msg: Download bash prompt
     if: which bash
-
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh  -o ~/.local/scripts/git-completion.zsh
     msg: Downloading zsh completion
     if: which zsh
-
   - command: curl -sfL git.io/antibody | sh -s - -b ~/.local/bin
     msg: Installing antibody
     if: which zsh
-
   - darwin: compaudit | xargs chmod g-w
     msg: ensuring security of compinit
     if: which zsh
-
   - command: stack setup && stack build && stack install
     msg: installing git prompt
     github: https://github.com/ksomf/zsh-git-prompt
     if: which zsh
 
+
   # VIM
-  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/nightly/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim
-    linux: curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
+  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim #https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-macos.tar.gz currently broken
+    linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
     msg: Installing neovim on linux
     if: test ! -f ~/.local/bin/vim
-
   - command: vim +PlugUpdate +PlugClean! +qa
     msg: Installing/Updating vim plugins
 
 
   # FONTS
-  - darwin: pip install -U afdko
-    msg: Installing font tools
-
   - darwin: ./build.sh && cp target/TTF/* ~/Library/Fonts/
     #linux: ./build.sh && mkdir -p ~/.fonts && cp target/TTF/* ~/.fonts/ #Currently the github script doesn't work on linux
     github: https://github.com/i-tu/Hasklig.git
     msg: Installing/Updating Hasklig font
-
-  - darwin: wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
-    linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
+  - darwin: wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ "*/*.ttf" -d ~/Library/Fonts/ && rm /tmp/z.$$
+    linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ "*/*.ttt" -d ~/.fonts/ && rm /tmp/z.$$
     msg: Installing FiraCodeFont
-
-  - darwin: wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ *.ttf -d ~/Library/Fonts/ && rm /tmp/z.$$
-    linux:  wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ *.ttf -d ~/.fonts/ && rm /tmp/z.$$
-    msg: Installing FiraCodeFont
+  - darwin: wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ "*/*.ttf" -d ~/Library/Fonts/ && rm /tmp/z.$$
+    linux:  wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ '*/*.ttf' -d ~/.fonts/ && rm /tmp/z.$$
+    msg: Installing JetBrainsMono

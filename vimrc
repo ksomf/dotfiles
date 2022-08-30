@@ -72,12 +72,15 @@ set pastetoggle=<F2>
 
 "set makeprg=./build_*.sh\ %                    " Set the make command to run build_*.sh scripts
 ":command -nargs=* Make silent make! <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
+"
+hi CocFloating guibg=none guifg=none
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 
 call plug#begin(data_dir . '/plugins')
 
@@ -115,7 +118,99 @@ let b:slime_config = { "window_id":2, "listen_on": $KITTY_LISTEN_ON }
 
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'onsails/lspkind.nvim'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 call plug#end()
 " doautocmd User PlugLoaded
+
+lua <<EOF
+require("mason").setup()
+require("mason-lspconfig").setup({
+-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
+	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "pyright", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
+	automatic_installation = true,
+})
+
+local lspkind = require('lspkind')
+local cmp = require'cmp'
+
+-- https://github.com/hrsh7th/nvim-cmp, with lspkind modification
+cmp.setup({
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    })
+  },
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+      -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    end,
+  },
+  window = {
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+require('lspconfig')['asm_lsp'          ].setup { capabilities = capabilities }
+require('lspconfig')['clangd'           ].setup { capabilities = capabilities }
+require('lspconfig')['fortls'           ].setup { capabilities = capabilities }
+require('lspconfig')['hls'              ].setup { capabilities = capabilities }
+require('lspconfig')['ltex'             ].setup { capabilities = capabilities }
+require('lspconfig')['marksman'         ].setup { capabilities = capabilities }
+require('lspconfig')['pyright'          ].setup { capabilities = capabilities }
+require('lspconfig')['r_language_server'].setup { capabilities = capabilities }
+require('lspconfig')['rust_analyzer'    ].setup { capabilities = capabilities }
+require('lspconfig')['vimls'            ].setup { capabilities = capabilities }
+require('lspconfig')['yamlls'           ].setup { capabilities = capabilities }
+
+-- FIX Awefull Floating Window Colour Scheme https://old.reddit.com/r/neovim/comments/tibfjr/changing_popup_window_background_color/i1d7q1b/
+vim.highlight.create("NormalFloat", { guibg = "darkgrey", guifg = "darkred" }, false)
+EOF
