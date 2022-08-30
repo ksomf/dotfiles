@@ -115,5 +115,7 @@ let b:slime_config = { "window_id":2, "listen_on": $KITTY_LISTEN_ON }
 
 Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 
+Plug 'neovim/nvim-lspconfig'
+
 call plug#end()
 " doautocmd User PlugLoaded
