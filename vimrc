@@ -121,6 +121,7 @@ Plug 'snakemake/snakemake', {'rtp': 'misc/vim'}
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter'
 
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/nvim-cmp'
@@ -137,6 +138,14 @@ require("mason-lspconfig").setup({
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "pyright", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
 	automatic_installation = true,
+})
+require('nvim-treesitter.configs').setup({
+	ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "make", "markdown", "python", "r", "rust", "vim" },
+	auto_install = true,
+	highlight = {
+		enable = true,
+		additional_vim_regex_highlighting = false,
+	}
 })
 
 local lspkind = require('lspkind')
