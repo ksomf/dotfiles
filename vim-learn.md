@@ -1,6 +1,6 @@
-# tpope/vim-surround
+#tpope/vim-surround
 
-### <surround>
+###<surround>
 
 - '
 - "
@@ -17,32 +17,32 @@ ys<visual sequence><surround_set>
 <visual>S<surround_set>
 ```
 
-# tpope/vim-unimpaired
+#tpope/vim-unimpaired
 
 - `]q` -> :cnext (`[q` -> :cprevious)
 - `]<space>` -> newline after
 - `]f` -> new file in dir
 
-# tpope/vim-commentary
+#tpope/vim-commentary
 
 - `gcc` -> toggle line comment
 - `gc<visual sequence>`
 - `visual -> gc`
 
-# tpope/vim-fugitive
+#tpope/vim-fugitive
 
 - `:Git` -> status defaulted git plug
 	- Remember <c-R><c-W> during command copies word under cursor
 
-# junegunn/fzf
+#junegunn/fzf
 
 - `:Files`
 
-# Regex
+#Regex
 
 - https://learnbyexample.gitbooks.io/vim-reference/content/Regular_Expressions.html#further-reading
 
-# vim-slime
+#vim-slime
 
 - kitty: cmd+enter -> new window
 - kitty: cmd+1-9 -> nth window

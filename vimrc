@@ -14,6 +14,7 @@ let fortran_free_source=1
 let fortran_do_enddo=1
 
 set hidden
+set wrap
 
 filetype plugin on
 filetype indent on
@@ -233,4 +234,16 @@ require('lspconfig')['yamlls'           ].setup { capabilities = capabilities }
 
 -- FIX Awefull Floating Window Colour Scheme https://old.reddit.com/r/neovim/comments/tibfjr/changing_popup_window_background_color/i1d7q1b/
 vim.highlight.create("NormalFloat", { guibg = "darkgrey", guifg = "darkred" }, false)
+vim.highlight.create("Pmenu"      , { guibg = "darkgrey", guifg = "darkred" }, false)
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = {
+      severity_limit = "Warning",
+    },
+    virtual_text = {
+      severity_limit = "Warning",
+    },
+  }
+)
 EOF
