@@ -50,7 +50,7 @@
   - command: curl -L "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh" -o minimamba.sh && sh minimamba.sh -ub -p ~/.local/minimamba && rm -f minimamba.sh
     msg: Installing Minimamba
       #if: test ! -d ~/.local/minimamba
-  - command: mamba install pip pipenv numpy scipy afdko
+  - command: mamba install pip pipenv numpy scipy unzip
     msg: installing mamba pip
     if: test ! -a ~/.local/minimamba/bin/pip
   - command: pip install -U afdko
@@ -64,12 +64,12 @@
   #   msg: Installing autoconf-2.70 (avoiding failures incurred on OSX from emacs)
   # - darwin: curl -sL https://ftpmirror.gnu.org/gnu/automake/automake-1.16.tar.gz | tar -xvz -C ~/.local/share -s '/automake-[0-9.]*/automake/' && cd $HOME/.local/share/automake && ./configure --prefix=$HOME/.local && make && make install
   #   msg: Installing automake
-  # - linux: ./bootstrap --prefix=~/.local && make && make install
-  #   github: --depth=1 --branch release https://github.com/Kitware/CMake
-  #   msg: Installing cmake 3.22.2
-  # - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm 
-  #   github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
-  #   msg: installing clang
+  - linux: ./bootstrap --prefix=~/.local && make && make install
+    github: --depth=1 --branch release https://github.com/Kitware/CMake
+    msg: Installing cmake 3.22.2
+  - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm 
+    github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
+    msg: installing clang
   # Rust
   - command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustlang.sh && sh rustlang.sh --no-modify-path -y && rm rustlang.sh
     msg: Installing the rust toolchain
@@ -79,8 +79,8 @@
   - command: ./install --key-bindings --completion --no-update-rc
     github: https://github.com/junegunn/fzf.git
     msg: Installing/Updating fzf
-  - command: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-    msg: Installing/Updating Kitty
+  - darwin: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+    msg: Installing/Updating Kitty TODO add if test for ubuntu
   - command: curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.local/scripts/git-completion.bash
     msg: Downloading bash completion
     if: which bash
@@ -117,8 +117,10 @@
     github: https://github.com/i-tu/Hasklig.git
     msg: Installing/Updating Hasklig font
   - darwin: wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ "*/*.ttf" -d ~/Library/Fonts/ && rm /tmp/z.$$
-    linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ "*/*.ttt" -d ~/.fonts/ && rm /tmp/z.$$
+    linux:  wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ "*/*.ttf" -d ~/.fonts/ && rm /tmp/z.$$
     msg: Installing FiraCodeFont
+    if: which unzip
   - darwin: wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && unzip -oj /tmp/z.$$ "*/*.ttf" -d ~/Library/Fonts/ && rm /tmp/z.$$
     linux:  wget https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip -O /tmp/z.$$ && mkdir -p ~/.fonts && unzip -oj /tmp/z.$$ '*/*.ttf' -d ~/.fonts/ && rm /tmp/z.$$
     msg: Installing JetBrainsMono
+    if: which unzip
