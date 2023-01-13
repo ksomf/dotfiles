@@ -244,6 +244,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     virtual_text = {
       severity_limit = "Warning",
     },
+    underline = {
+      severity_limit = "Warning",
+    },
   }
 )
 EOF
