@@ -67,7 +67,7 @@
   - linux: ./bootstrap --prefix=~/.local && make && make install
     github: --depth=1 --branch release https://github.com/Kitware/CMake
     msg: Installing cmake 3.22.2
-  - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm 
+  - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && make && make install
     github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
     msg: installing clang
   # Rust
