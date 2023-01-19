@@ -1,7 +1,6 @@
 """"""""""""""""""""
 " GENERAL SETTINGS "
 """"""""""""""""""""
-
 "Indentation
 set noexpandtab
 set tabstop=3
@@ -62,11 +61,11 @@ let mapleader = "\<space>"
 vnoremap y myy`y
 vnoremap Y myY`y
 
-set pastetoggle=<F2> 
+set pastetoggle=<F5> 
 :imap jk <Esc>
-:nmap <F3> :cprevious<CR>
-:nmap <F4> :cnext<CR>
-:nmap <F5> :Make<CR>
+:nmap <F6> :cprevious<CR>
+:nmap <F7> :cnext<CR>
+:nmap <F8> :Make<CR>
 :nnoremap <F9>  :ConqueGdbCommand step<CR>
 :nnoremap <F10> :ConqueGdbCommand next<CR>
 :nnoremap <F11> :ConqueGdbCommand finish<CR>
@@ -218,8 +217,7 @@ cmp.setup.cmdline(':', {
 })
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig')['asm_lsp'          ].setup { capabilities = capabilities }
 require('lspconfig')['clangd'           ].setup { capabilities = capabilities }
 require('lspconfig')['fortls'           ].setup { capabilities = capabilities }
@@ -233,8 +231,8 @@ require('lspconfig')['vimls'            ].setup { capabilities = capabilities }
 require('lspconfig')['yamlls'           ].setup { capabilities = capabilities }
 
 -- FIX Awefull Floating Window Colour Scheme https://old.reddit.com/r/neovim/comments/tibfjr/changing_popup_window_background_color/i1d7q1b/
-vim.highlight.create("NormalFloat", { guibg = "darkgrey", guifg = "darkred" }, false)
-vim.highlight.create("Pmenu"      , { guibg = "darkgrey", guifg = "darkred" }, false)
+vim.api.nvim_set_hl(0, "NormalFloat", { ctermbg = "darkgrey", ctermfg = "darkred" })
+vim.api.nvim_set_hl(0, "Pmenu"      , { ctermbg = "darkgrey", ctermfg = "darkred" })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
