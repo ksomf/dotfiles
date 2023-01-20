@@ -136,11 +136,11 @@ lua <<EOF
 require("mason").setup()
 require("mason-lspconfig").setup({
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "pyright", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
+	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
 	automatic_installation = true,
 })
 require('nvim-treesitter.configs').setup({
-	ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "make", "markdown", "python", "r", "rust", "vim" },
+	ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "lua", "make", "markdown", "python", "r", "rust", "vim" },
 	auto_install = true,
 	highlight = {
 		enable = true,
@@ -216,19 +216,19 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Setup lspconfig.
+-- Setup lspconfig. (:h mason-lspconfig-automatic-server-setup)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig')['asm_lsp'          ].setup { capabilities = capabilities }
-require('lspconfig')['clangd'           ].setup { capabilities = capabilities }
-require('lspconfig')['fortls'           ].setup { capabilities = capabilities }
-require('lspconfig')['hls'              ].setup { capabilities = capabilities }
-require('lspconfig')['ltex'             ].setup { capabilities = capabilities }
-require('lspconfig')['marksman'         ].setup { capabilities = capabilities }
-require('lspconfig')['pyright'          ].setup { capabilities = capabilities }
-require('lspconfig')['r_language_server'].setup { capabilities = capabilities }
-require('lspconfig')['rust_analyzer'    ].setup { capabilities = capabilities }
-require('lspconfig')['vimls'            ].setup { capabilities = capabilities }
-require('lspconfig')['yamlls'           ].setup { capabilities = capabilities }
+require('mason-lspconfig').setup_handlers {
+  function (server_name)
+    require('lspconfig')[server_name].setup { capabilities = capabilities }
+  end,
+  ['ruff_lsp'] = function ()
+    require('lspconfig')['ruff_lsp'].setup {
+      capabilities = capabilities,
+      init_options = { settings = { args = { '--ignore', 'E501' } } }
+    }
+    end
+}
 
 -- FIX Awefull Floating Window Colour Scheme https://old.reddit.com/r/neovim/comments/tibfjr/changing_popup_window_background_color/i1d7q1b/
 vim.api.nvim_set_hl(0, "NormalFloat", { ctermbg = "darkgrey", ctermfg = "darkred" })
