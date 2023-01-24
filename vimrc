@@ -136,7 +136,7 @@ lua <<EOF
 require("mason").setup()
 require("mason-lspconfig").setup({
 -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
+	ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
 	automatic_installation = true,
 })
 require('nvim-treesitter.configs').setup({
@@ -216,16 +216,40 @@ cmp.setup.cmdline(':', {
   })
 })
 
+
+-- See: https://github.com/neovim/nvim-lspconfig/tree/54eb2a070a4f389b1be0f98070f81d23e2b1a715#suggested-configuration
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
+
 -- Setup lspconfig. (:h mason-lspconfig-automatic-server-setup)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('mason-lspconfig').setup_handlers {
   function (server_name)
-    require('lspconfig')[server_name].setup { capabilities = capabilities }
+    require('lspconfig')[server_name].setup { capabilities = capabilities, on_attach = on_attach }
   end,
   ['ruff_lsp'] = function ()
     require('lspconfig')['ruff_lsp'].setup {
       capabilities = capabilities,
-      init_options = { settings = { args = { '--ignore', 'E501' } } }
+      init_options = { settings = { args = { '--ignore', 'E501' } } },
+      on_attach    = on_attach
     }
     end
 }
