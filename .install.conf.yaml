@@ -36,7 +36,7 @@
    ~/.config/kitty/kitty.conf:
       force: true
       path: kitty.conf
-   ~/.gitignore_global:
+   ~/.gitignore:
       path: gitignore_global
       if: which git
    ~/.Renviron: Renviron
