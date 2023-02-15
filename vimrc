@@ -248,7 +248,7 @@ require('mason-lspconfig').setup_handlers {
   ['ruff_lsp'] = function ()
     require('lspconfig')['ruff_lsp'].setup {
       capabilities = capabilities,
-      init_options = { settings = { args = { '--ignore', 'E501' } } },
+      init_options = { settings = { args = { '--ignore', 'E501', '--ignore', 'E101' } } },
       on_attach    = on_attach
     }
     end
