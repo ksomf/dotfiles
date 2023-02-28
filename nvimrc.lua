@@ -52,11 +52,11 @@ set listchars=tab:→\ ,trail:•,nbsp:•",eol:↲
 --vim.opt.clipboard   =unnamedplus "Warning security risk
 --vim.opt.mouse       ='a'
 
-vim.opt.directory = '~/.local/vim_swap//'
+vim.opt.directory = os.getenv("HOME") .. '/.local/vim_swap//'
 vim.opt.undofile  = true
-vim.opt.undodir   = '~/.local/vim_undo//'
+vim.opt.undodir   = os.getenv("HOME") .. '/.local/vim_undo//'
 vim.opt.backup    = true
-vim.opt.backupdir = '~/.local/vim_backup//'
+vim.opt.backupdir = os.getenv("HOME") .. '/.local/vim_backup//'
 
 
 vim.opt.spell = false
