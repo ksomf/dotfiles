@@ -22,10 +22,11 @@
   - ~/.local/share
   - ~/.config/kitty
   - ~/.config/nvim
+  - ~/.config/nvim/lua
 
 - link:
-   ~/.vimrc: vimrc
-   ~/.config/nvim/init.vim: vimrc
+   ~/.vimrc: vimrc.vim
+   ~/.config/nvim/init.lua: nvimrc.lua
    ~/.bashrc:
       path: bashrc
       if: which bash
@@ -103,11 +104,11 @@
 
 
   # VIM
-  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-osx64/bin/nvim ~/.local/bin/vim #https://github.com/neovim/neovim/releases/download/v0.7.2/nvim-macos.tar.gz currently broken
+  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-macos/bin/nvim ~/.local/bin/vim
     linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
     msg: Installing neovim on linux
     if: test ! -f ~/.local/bin/vim
-  - command: vim +PlugUpdate +PlugClean! +qa
+  - command: vim +PackerSync! +qa
     msg: Installing/Updating vim plugins
 
 
