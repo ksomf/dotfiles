@@ -162,7 +162,7 @@ require('packer').startup(function(use)
       , requires={'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', 'neovim/nvim-lspconfig'}
 		, config=function()
           require('nvim-treesitter.configs').setup({
-          	ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "lua", "make", "markdown", "python", "r", "rust", "vim" },
+          	ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "lua", "make", "markdown", "python", "r", "rust", "vim", "yaml" },
           	auto_install = true,
           	highlight = {
           		enable = true,
