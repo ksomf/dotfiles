@@ -223,12 +223,12 @@ require('packer').startup(function(use)
               if vim.api.nvim_get_mode().mode == 'c' then
                 return true
               else
-                return not context.in_treesitter_capture("comment") 
+                return not context.in_treesitter_capture("comment")
                   and not context.in_syntax_group("Comment")
               end
             end
           })
-          
+
           -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
           cmp.setup.cmdline('/', {
             mapping = cmp.mapping.preset.cmdline(),
@@ -236,7 +236,7 @@ require('packer').startup(function(use)
               { name = 'buffer' }
             }
           })
-          
+
           -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
           cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
@@ -246,11 +246,11 @@ require('packer').startup(function(use)
               { name = 'cmdline' }
             })
           })
-          
+
           -- See: https://github.com/neovim/nvim-lspconfig/tree/54eb2a070a4f389b1be0f98070f81d23e2b1a715#suggested-configuration
           local on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
-				-- Also allows default behaviour if no LSP attached
+            -- Also allows default behaviour if no LSP attached
             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
             local bufopts = { noremap=true, silent=true, buffer=bufnr }
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -269,7 +269,7 @@ require('packer').startup(function(use)
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
             vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
           end
-          
+
           -- Setup lspconfig. (:h mason-lspconfig-automatic-server-setup)
           local capabilities = require('cmp_nvim_lsp').default_capabilities()
           require('mason-lspconfig').setup_handlers {

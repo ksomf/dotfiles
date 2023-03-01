@@ -65,12 +65,12 @@
   #   msg: Installing autoconf-2.70 (avoiding failures incurred on OSX from emacs)
   # - darwin: curl -sL https://ftpmirror.gnu.org/gnu/automake/automake-1.16.tar.gz | tar -xvz -C ~/.local/share -s '/automake-[0-9.]*/automake/' && cd $HOME/.local/share/automake && ./configure --prefix=$HOME/.local && make && make install
   #   msg: Installing automake
-  - linux: ./bootstrap --prefix=~/.local && make && make install
-    github: --depth=1 --branch release https://github.com/Kitware/CMake
-    msg: Installing cmake 3.22.2
-  - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && make && make install
-    github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
-    msg: installing clang
+  # - linux: ./bootstrap --prefix=~/.local && make && make install
+  #   github: --depth=1 --branch release https://github.com/Kitware/CMake
+  #   msg: Installing cmake 3.22.2
+  # - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && make && make install
+  #   github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
+  #   msg: installing clang
   # Rust
   - command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustlang.sh && sh rustlang.sh --no-modify-path -y && rm rustlang.sh
     msg: Installing the rust toolchain
