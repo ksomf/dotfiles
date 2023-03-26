@@ -81,8 +81,8 @@ set pastetoggle=<F5>
 ]])
 
 vim.cmd([[
-"set makeprg=./build_*.sh\ %                    " Set the make command to run build_*.sh scripts
-":command -nargs=* Make silent make! <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
+set makeprg=./build_*.sh\ %                    " Set the make command to run build_*.sh scripts
+:command -nargs=* Make silent make! <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
 "
 hi CocFloating guibg=none guifg=none
 ]])
@@ -135,8 +135,16 @@ require('packer').startup(function(use)
    use 'tpope/vim-surround'
    use 'tpope/vim-repeat'
 
+   use { 'blueyed/vim-qf_resize' 
+       , config=function()
+           vim.g.qf_resize_min_height = 20
+           vim.g.qf_resize_max_height = 50
+         end }
+
    use { 'junegunn/fzf', run=vim.fn['fzf#install'] }
    use 'junegunn/fzf.vim'
+
+   use { 'sakhnik/nvim-gdb', run=vim.fn[':!./install.sh'] }
 
    use { 'jpalardy/vim-slime'
        , config=function()
