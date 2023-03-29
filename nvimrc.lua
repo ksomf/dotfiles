@@ -65,6 +65,15 @@ vim.opt.spell = false
 -- KEYMAPS --
 -------------
 
+function get_build_script()
+	local result = vim.fs.find('build.sh', {
+		  upward=true
+		, limit=1
+		, type='file'
+	})
+	return result[1]
+end
+
 -- Keep cursor position when yanking visual http://ddrscott.github.io/blog/2016/yank-without-jank/
 vim.cmd([[
 vnoremap y myy`y
@@ -74,15 +83,15 @@ set pastetoggle=<F5>
 :imap jk <Esc>
 :nmap <F6> :cprevious<CR>
 :nmap <F7> :cnext<CR>
-:nmap <F8> :Make<CR>
+:nmap <F8> :lua vim.opt.makeprg=get_build_script() <CR>:Make <CR>
 :nnoremap <F9>  :ConqueGdbCommand step<CR>
 :nnoremap <F10> :ConqueGdbCommand next<CR>
 :nnoremap <F11> :ConqueGdbCommand finish<CR>
 ]])
 
+
 vim.cmd([[
-set makeprg=./build_*.sh\ %                    " Set the make command to run build_*.sh scripts
-:command -nargs=* Make silent make! <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
+:command -nargs=* Make silent make <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
 "
 hi CocFloating guibg=none guifg=none
 ]])
