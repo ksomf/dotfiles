@@ -233,7 +233,7 @@ require('packer').startup(function(use)
 	use 'onsails/lspkind.nvim'
 
 	use { 'hrsh7th/nvim-cmp'
-	, requires = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', 'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-vsnip', 'hrsh7th/vim-vsnip', 'onsails/lspkind.nvim' }
+	, requires = { 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim', 'neovim/nvim-lspconfig', 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-vsnip', 'hrsh7th/vim-vsnip', 'onsails/lspkind.nvim', 'nvim-telescope/telescope.nvim' }
 	, config =  function()
 		local lspkind = require('lspkind')
 		local cmp = require('cmp')
@@ -304,6 +304,8 @@ require('packer').startup(function(use)
 			--vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
 			--vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
 			vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+			vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, bufopts)
+			vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols         , bufopts)
 			--vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 			--vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
 		end
