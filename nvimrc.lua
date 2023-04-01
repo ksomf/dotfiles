@@ -207,7 +207,7 @@ require('packer').startup(function(use)
 	, config=function()
 		require("mason-lspconfig").setup({
 			-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-			ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "rust_analyzer", "vimls", "yamlls" },
+			ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "vimls", "yamlls", "zls" },
 			automatic_installation = true,
 		})
 	end }
@@ -218,7 +218,7 @@ require('packer').startup(function(use)
 	, run=':TSUpdate'
 	, config=function()
 		require('nvim-treesitter.configs').setup({
-			ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "lua", "make", "markdown", "python", "r", "rust", "vim", "yaml" },
+			ensure_installed = { "bibtex", "c", "cpp", "cuda", "llvm", "lua", "make", "markdown", "python", "r", "vim", "yaml" },
 			auto_install = true,
 			highlight = {
 				enable = true,
