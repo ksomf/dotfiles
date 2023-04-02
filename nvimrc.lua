@@ -302,11 +302,11 @@ require('packer').startup(function(use)
 				--  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				--end, bufopts)
 			--vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-			--vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+			vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
 			vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 			vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, bufopts)
 			vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols         , bufopts)
-			--vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+			vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 			--vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
 		end
 
