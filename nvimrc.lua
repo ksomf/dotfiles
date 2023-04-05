@@ -53,10 +53,12 @@ set listchars=tab:→\ ,trail:•,nbsp:•",eol:↲
 --vim.opt.clipboard   =unnamedplus "Warning security risk
 --vim.opt.mouse       ='a'
 
-vim.opt.swapfile  = false
-vim.opt.backup    = false
-vim.opt.undodir   = os.getenv("HOME") .. '/.local/vim_undo//'
+vim.opt.swapfile  = true
+vim.opt.backup    = true
 vim.opt.undofile  = true
+vim.opt.undodir   = os.getenv("HOME") .. '/.local/vim_undo//'
+vim.opt.directory = os.getenv("HOME") .. '/.local/vim_swap//'
+vim.opt.backupdir = os.getenv("HOME") .. '/.local/vim_backup//'
 
 
 vim.opt.spell = false
@@ -207,7 +209,7 @@ require('packer').startup(function(use)
 	, config=function()
 		require("mason-lspconfig").setup({
 			-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-			ensure_installed = { "asm_lsp", "clangd", "fortls", "hls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "vimls", "yamlls", "zls" },
+			ensure_installed = { "asm_lsp", "clangd", "fortls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "vimls", "yamlls", "zls" },
 			automatic_installation = true,
 		})
 	end }
