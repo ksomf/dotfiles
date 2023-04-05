@@ -23,6 +23,7 @@ filetype plugin on
 filetype indent on
 autocmd FileType python setlocal noexpandtab
 syntax on
+au BufNewFile,BufRead Snakefile,*.smk set filetype=snakemake 
 ]])
 
 vim.opt.showcmd   = true
