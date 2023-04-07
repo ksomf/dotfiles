@@ -26,14 +26,14 @@ syntax on
 au BufNewFile,BufRead Snakefile,*.smk set filetype=snakemake 
 ]])
 
-vim.opt.showcmd   = true
-vim.opt.showmatch = true
-vim.opt.incsearch = true -- Search immediately
-vim.opt.hlsearch  = true -- Highlight partial search results
-vim.opt.smartcase = true
-vim.opt.wildmenu  = true
-vim.opt.wildmode  = 'longest:full,full'
-vim.opt.wrap      = false
+vim.opt.showcmd    = true
+vim.opt.showmatch  = true
+vim.opt.incsearch  = true -- Search immediately
+vim.opt.hlsearch   = true -- Highlight partial search results
+vim.opt.smartcase  = true
+vim.opt.wildmenu   = true
+vim.opt.wildmode   = 'longest:full,full'
+vim.opt.wrap       = false
 
 vim.opt.number         = true
 vim.opt.relativenumber = true
@@ -311,6 +311,7 @@ require('packer').startup(function(use)
 			vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols         , bufopts)
 			vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 			--vim.keymap.set('n', '<leader>fm', function() vim.lsp.buf.format { async = true } end, bufopts)
+			vim.opt.signcolumn = 'yes:1' --Don't redraw at different widths all the time all the time
 		end
 
 		-- Setup lspconfig. (:h mason-lspconfig-automatic-server-setup)
