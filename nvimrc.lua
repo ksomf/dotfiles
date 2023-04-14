@@ -92,11 +92,14 @@ vim.keymap.set( 'n', 'Q', '<Nop>' )
 vim.keymap.set( 'n', 'ga', '<cmd>diffget //2' )
 vim.keymap.set( 'n', 'go', '<cmd>diffget //3' )
 
+
 vim.opt.pastetoggle='<F6>'
 vim.keymap.set( 'i', 'fp'       , '<Esc>' )
 vim.keymap.set( 'n', '<leader>m', vim.cmd.cprevious )
 vim.keymap.set( 'n', '<leader>n', vim.cmd.cnext )
 vim.keymap.set( 'n', '<F8>'     , function() vim.opt.makeprg=get_build_script(); vim.cmd.Make(); end )
+
+vim.keymap.set( 't', '<Esc>', '<C-\\><C-n>' )
 
 vim.cmd([[
 :command -nargs=* Make silent make <args> | cwindow 32 | redraw!  " Run the makeprg command with arguments and if errors show up open an error window
@@ -198,8 +201,8 @@ require('packer').startup(function(use)
 
 	use { 'jpalardy/vim-slime'
 	, config=function()
-		vim.g.slime_target = "kitty"
-		vim.g.slime_config = { window_id=2, listen_on=os.getenv('KITTY_LISTEN_ON') }
+		vim.g.slime_target = "neovim"
+		--vim.g.slime_config = { window_id=2, listen_on=os.getenv('KITTY_LISTEN_ON') }
 	end }
 
 	use { 'snakemake/snakemake', rtp='misc/vim' }
