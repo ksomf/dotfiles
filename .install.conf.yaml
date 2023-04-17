@@ -71,10 +71,6 @@
   # - command: mkdir -p build && cd build && cmake -DCMAKE_INSTALL_PREFIX=~/.local -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" ../llvm && make && make install
   #   github: --branch release/13.x --depth=1 https://github.com/llvm/llvm-project.git
   #   msg: installing clang
-  # Rust
-  - command: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustlang.sh && sh rustlang.sh --no-modify-path -y && rm rustlang.sh
-    msg: Installing the rust toolchain
-
 
   # TERMINAL
   - command: ./install --key-bindings --completion --no-update-rc
@@ -104,10 +100,10 @@
 
 
   # VIM
-  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-macos/bin/nvim ~/.local/bin/vim
-    linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/vim
+  - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-macos/bin/nvim ~/.local/bin/nvim
+    linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/nvim
     msg: Installing neovim on linux
-    if: test ! -f ~/.local/bin/vim
+    if: test ! -f ~/.local/bin/nvim
   - command: vim +PackerSync! +qa
     msg: Installing/Updating vim plugins
 
