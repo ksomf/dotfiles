@@ -157,9 +157,13 @@ require('packer').startup(function(use)
 	use 'tpope/vim-surround'
 	use 'tpope/vim-repeat'
 
+	use { 'ziglang/zig.vim', config=function()
+		vim.g.zig_fmt_autosave = 0
+	end }
+
 	use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons' }, config = function()
 	    	require('lualine').setup()
-		 end }
+	end }
 
 	-- to test: melange, tender, zenbones, rosebones, nordbones, tokyobones, seoulbones, kanagawabones, kanagawa{,-wave,-lotus,-dragon}, nordic
 	use { 'jacoborus/tender.vim' }--, config=function() vim.cmd.colorscheme 'tender'; end}
@@ -190,14 +194,14 @@ require('packer').startup(function(use)
 	use { 'mbbill/undotree', config=function()
 		vim.keymap.set( 'n', '<leader>u', vim.cmd.UndotreeToggle )
 	end }
-	use { 'sakhnik/nvim-gdb', run=vim.fn[':!./install.sh'], config=function()
-		vim.keymap.set( 'n', '<leader>s' , vim.cmd.Gdbnext )
-		vim.keymap.set( 'n', '<leader>i' , vim.cmd.Gdbstep )
-		vim.keymap.set( 'n', '<leader>d' , vim.cmd.GdbFinish )
-		vim.keymap.set( 'n', '<leader>b' , vim.cmd.GdbBreakPointToggle )
-		vim.keymap.set( 'n', '<F5>'      , vim.cmd.GdbContinue )
-		vim.keymap.set( 'n', '<leader>wl', function() vim.cmd.GdbCreateWatch('info', 'locals') end )
-	end }
+	-- use { 'sakhnik/nvim-gdb', run=vim.fn[':!./install.sh'], config=function()
+	-- 	vim.keymap.set( 'n', '<leader>s' , vim.cmd.Gdbnext )
+	-- 	vim.keymap.set( 'n', '<leader>i' , vim.cmd.Gdbstep )
+	-- 	vim.keymap.set( 'n', '<leader>d' , vim.cmd.GdbFinish )
+	-- 	vim.keymap.set( 'n', '<leader>b' , vim.cmd.GdbBreakPointToggle )
+	-- 	vim.keymap.set( 'n', '<F5>'      , vim.cmd.GdbContinue )
+	-- 	vim.keymap.set( 'n', '<leader>wl', function() vim.cmd.GdbCreateWatch('info', 'locals') end )
+	-- end }
 
 	use { 'jpalardy/vim-slime'
 	, config=function()
@@ -207,10 +211,11 @@ require('packer').startup(function(use)
 
 	use { 'snakemake/snakemake', rtp='misc/vim' }
 
-	use { 'williamboman/mason.nvim', config=function() require("mason").setup() end }
+	use 'williamboman/mason.nvim'
 	use { 'williamboman/mason-lspconfig.nvim'
 	, requires={'williamboman/mason.nvim'}
 	, config=function()
+		require("mason").setup()
 		require("mason-lspconfig").setup({
 			-- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
 			ensure_installed = { "asm_lsp", "clangd", "fortls", "ltex", "marksman", "ruff_lsp", "jedi_language_server", "r_language_server", "vimls", "yamlls", "zls" },
