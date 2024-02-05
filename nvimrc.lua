@@ -22,6 +22,7 @@ vim.cmd([[
 filetype plugin on
 filetype indent on
 autocmd FileType python setlocal noexpandtab
+autocmd FileType zig    setlocal noexpandtab
 syntax on
 au BufNewFile,BufRead Snakefile,*.smk set filetype=snakemake 
 ]])
