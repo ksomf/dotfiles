@@ -101,7 +101,7 @@
 
   # VIM
   - darwin: curl -sL https://github.com/neovim/neovim/releases/download/v0.8.3/nvim-macos.tar.gz | tar -xvz -C ~/.local/bin/ && ln -Fs ~/.local/bin/nvim-macos/bin/nvim ~/.local/bin/nvim
-    linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/vim && chmod u+x ~/.local/bin/nvim
+    linux:  curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/nvim && chmod u+x ~/.local/bin/nvim
     msg: Installing neovim on linux
     if: test ! -f ~/.local/bin/nvim
   - command: vim +PackerSync! +qa
